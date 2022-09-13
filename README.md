@@ -8,10 +8,13 @@
 
 **Скриншот приложения**:
 
+![](https://github.com/AlexanderKozinov/DeploymentDiagramEditor-KP-/blob/main/f.png)
 
 ## Зависимости
 
 **Диаграмма классов**:
+
+![](https://github.com/AlexanderKozinov/DeploymentDiagramEditor-KP-/blob/main/d.png)
 
 ## Установка
 
