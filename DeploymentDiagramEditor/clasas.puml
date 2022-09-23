@@ -1,0 +1,105 @@
+@startuml
+class com.programos.deploymentdiagrameditor.MainApplication {
++ void start(Stage)
++ {static} void main(String[])
+}
+class com.programos.deploymentdiagrameditor.deployBlocks.DefaultBlock {
++ ArrayList<Dragger> listeners
+# TextField editableText
++ String text
+# double width
+# Label showText
+# double height
+# Point2D point
++ double pX
++ double pY
++ DeployBlockType type
+- double mouseAnchorX
+- double mouseAnchorY
++ void draw()
++ DefaultBlock copy()
++ DefaultBlock copy(Dragger)
++ double getHeight()
++ double getWidth()
++ Point2D getPosition()
++ double minY()
++ double minX()
++ double maxY()
++ double maxX()
++ ArrayList<Point2D> getArrayOfMinMaxPoints()
++ boolean Equals(DefaultBlock)
+}
+enum com.programos.deploymentdiagrameditor.deployBlocks.DeployBlockType {
++  ARTIFACT
++  HOST
+}
+interface com.programos.deploymentdiagrameditor.Dragger {
+~ void onDrag()
+}
+class com.programos.deploymentdiagrameditor.deployBlocks.Transition {
++ DefaultBlock from
++ DefaultBlock to
++ {static} PointOfConnect<Point2D,Point2D> getPointsOfConnection(DefaultBlock,DefaultBlock)
+}
+class com.programos.deploymentdiagrameditor.deployBlocks.ListBlocks {
+~ ArrayList<DefaultBlock> blocks
+~ ArrayList<Transition> connections
+~ Dragger dragger
++ DefaultBlock add(DeployBlockType,Point2D,String)
++ DefaultBlock add(DefaultBlock)
++ ArrayList<DefaultBlock> getBlocks()
++ void clear()
++ void delete(DefaultBlock)
++ Transition addConnection(Line,DefaultBlock,DefaultBlock)
++ ArrayList<Transition> getConnections()
+}
+class com.programos.deploymentdiagrameditor.deployBlocks.HostBlock {
+~ ArrayList<ArtifactBlock> artifactBlocks
++ ArrayList<ArtifactBlock> getArtifactBlocks()
++ HostBlock copy()
++ HostBlock copy(Dragger)
++ void addArtifact(String)
++ void draw()
+}
+class com.programos.deploymentdiagrameditor.deployBlocks.BlocksFactory {
++ {static} DefaultBlock createBlock(DeployBlockType,Point2D,String,Dragger)
+}
+class com.programos.deploymentdiagrameditor.MainController {
++ ToggleButton artifactCreator
++ ToggleButton nodeCreator
++ Pane desktop
+~ ListBlocks blocks
+~ DefaultBlock[] connectionBlocks
++ void initialize(URL,ResourceBundle)
+- void drawOnDesktop(DefaultBlock)
+- void drawTransitions()
+- void addTransition(DefaultBlock,DefaultBlock)
+- void saveAsPicture()
+- void saveAsFile()
++ void saveAsFile(File)
+- void openAsFile()
+- void openAsFile(File)
+- void reloadDesktop()
+- void help()
+}
+class com.programos.deploymentdiagrameditor.PointOfConnect {
++ X item1
++ Y item2
+}
+class com.programos.deploymentdiagrameditor.deployBlocks.ArtifactBlock {
++ DefaultBlock copy()
++ DefaultBlock copy(Dragger)
++ void draw()
+}
+
+
+javafx.application.Application <|-- com.programos.deploymentdiagrameditor.MainApplication
+java.io.Serializable <|.. com.programos.deploymentdiagrameditor.deployBlocks.DefaultBlock
+javafx.scene.Group <|-- com.programos.deploymentdiagrameditor.deployBlocks.DefaultBlock
+java.io.Serializable <|.. com.programos.deploymentdiagrameditor.deployBlocks.Transition
+javafx.scene.Group <|-- com.programos.deploymentdiagrameditor.deployBlocks.Transition
+java.io.Serializable <|.. com.programos.deploymentdiagrameditor.deployBlocks.ListBlocks
+com.programos.deploymentdiagrameditor.deployBlocks.DefaultBlock <|-- com.programos.deploymentdiagrameditor.deployBlocks.HostBlock
+javafx.fxml.Initializable <|.. com.programos.deploymentdiagrameditor.MainController
+com.programos.deploymentdiagrameditor.deployBlocks.DefaultBlock <|-- com.programos.deploymentdiagrameditor.deployBlocks.ArtifactBlock
+@enduml
